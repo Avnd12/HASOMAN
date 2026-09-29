@@ -1,0 +1,294 @@
+
+/* --- DESAIN (CSS) --- */
+:root {
+    --bg-cream: #F8FAFC;
+    --emerald-green: #1E3A8A;
+    --emerald-light: #3B82F6;
+    --text-dark: #1E293B;
+    --white: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+body { background-color: var(--bg-cream); color: var(--text-dark); }
+
+/* --- HEADER BARU --- */
+/* --- PASTIKAN HEADER DI ATAS --- */
+header { 
+    background-color: var(--emerald-green); 
+    color: var(--white); 
+    padding: 1rem 2rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative; 
+    z-index: 1000; /* Lapisan header ditinggikan */
+}
+
+/* --- TOMBOL MUSIK DI KANAN --- */
+#musicToggle {
+    background: none;
+    border: none;
+    color: var(--white);
+    padding: 1rem 2rem;
+    text-align: left;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#musicToggle:hover {
+    background-color: var(--emerald-light);
+    padding-left: 2.5rem;
+}
+
+/* --- SIDEBAR MENU --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; 
+    width: 250px;
+    height: 100vh; 
+    background-color: var(--emerald-green);
+    box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    transition: left 0.3s ease-in-out; 
+    z-index: 999; /* Di bawah header saat tertutup, tapi di atas konten utama */
+}
+
+/* --- SIDEBAR MENU (Tersembunyi) --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Sembunyikan menu di luar layar sebelah kiri */
+    width: 250px;
+    height: 100vh; /* Setinggi layar penuh */
+    background-color: var(--emerald-green);
+    box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    transition: left 0.3s ease-in-out; /* Efek meluncur yang smooth */
+    z-index: 9999;
+}
+
+/* Class ini akan dipanggil JavaScript untuk memunculkan menu */
+.sidebar.open {
+    left: 0; 
+}
+
+.sidebar button { 
+    background: none; 
+    border: none; 
+    color: var(--white); 
+    padding: 1rem 2rem; 
+    text-align: left;
+    font-size: 1.1rem;
+    cursor: pointer; 
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease; 
+}
+
+.sidebar button:hover, .sidebar button.active { 
+    background-color: var(--emerald-light); 
+    padding-left: 2.5rem; /* Efek bergeser sedikit saat disentuh */
+}
+
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-menu:hover {
+    color: #ff4d4d;
+}
+
+nav button { 
+    background: none; border: none; color: var(--white); 
+    padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; 
+}
+nav button:hover, nav button.active { background-color: var(--emerald-light); }
+
+#musicToggle {
+    background-color: var(--white);
+    color: var(--emerald-green);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+#musicToggle:hover { background-color: #e0e0e0; }
+
+main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.card { 
+    background: var(--white); padding: 1.5rem; border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; 
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+.card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.card h3 { color: var(--emerald-green); margin-bottom: 0.5rem; }
+
+.action-btn {
+    display: inline-block; background-color: var(--emerald-green); color: var(--white);
+    padding: 0.6rem 1.2rem; text-decoration: none; border: none;
+    border-radius: 4px; margin-top: 1rem; cursor: pointer; transition: 0.3s;
+}
+.action-btn:hover { background-color: var(--emerald-light); }
+.video-container { width: 100%; border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+
+/* --- EFEK POP-UP BLUR --- */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); z-index: 9999; 
+    justify-content: center; align-items: center;
+}
+.modal-content {
+    background: var(--white); padding: 2rem; border-radius: 12px;
+    max-width: 500px; width: 90%; text-align: center; position: relative;
+    animation: popUp 0.3s ease-out;
+}
+@keyframes popUp { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-content img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.close-btn { position: absolute; top: 10px; right: 15px; font-size: 2rem; cursor: pointer; color: red; }
+
+/* --- DESAIN GAME INTERAKTIF & LEADERBOARD --- */
+.game-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Tabel Leaderboard */
+.leaderboard {
+    margin-top: 2rem;
+    background-color: #f4fdf8;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#score-table th, #score-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#score-table th {
+    background-color: var(--emerald-green);
+    color: white;
+}
+
+#score-table tr:hover {
+    background-color: #e6f7ef;
+}
+
+#score-table tr:nth-child(1) td { font-weight: bold; color: #d4af37; /* Emas untuk juara 1 */ }
+#score-table tr:nth-child(2) td { font-weight: bold; color: #c0c0c0; /* Perak untuk juara 2 */ }
+#score-table tr:nth-child(3) td { font-weight: bold; color: #cd7f32; /* Perunggu untuk juara 3 */ }
+
+/* Tombol Jawaban (Grid) */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.option-btn {
+    background-color: var(--white);
+    color: var(--emerald-green);
+    border: 2px solid var(--emerald-green);
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.option-btn:hover {
+    background-color: var(--emerald-green);
+    color: white;
+    transform: scale(1.02);
+}
+
+/* Animasi Progress Bar Waktu */
+.timer-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+#timer-bar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--emerald-green);
+    transition: width 1s linear, background-color 0.3s;
+}
+/* --- REVISI FINAL: LOGO & JUDUL DI TENGAH --- */
+header {
+    min-height: 130px; /* Memperlebar area biru header ke bawah agar cukup untuk logo dan teks */
+    position: relative; 
+}
+
+.header-brand {
+    display: flex;
+    flex-direction: column; /* Mengubah susunan menjadi atas-bawah (vertikal) */
+    align-items: center; /* Meratakan gambar dan teks persis di tengah */
+    gap: 8px; /* Jarak yang pas antara kotak logo dan teks HASOMAN */
+    position: absolute; /* Trik agar posisinya mutlak di tengah header */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Kunci utama agar posisinya akurat 100% di tengah layar */
+}
+
+/* Kotak pemotong background putih tetap dipertahankan */
+.logo-box {
+    width: 140px;      
+    height: 65px;      
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.logo-img {
+    width: 240px;      
+    max-width: none;   
+    height: auto;
+}
+
+/* Memastikan teks HASOMAN terlihat rapi di bawah logo */
+.header-brand h2.logo {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: 1px; /* Memberi sedikit jarak antar huruf agar terlihat elegan */
+}

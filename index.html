@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASOMAN - Infrastruktur Jaringan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="inpool.mp3" type="audio/mpeg">
+    </audio>
+
+   <header>
+       <!-- Tombol Hamburger (Kiri) -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        
+       <!-- Logo di Tengah -->
+        <div class="header-brand">
+            <div class="logo-box">
+                <img src="Nethubb.jpg" alt="Logo SMK TKJ" class="logo-img">
+            </div>
+            <h2 class="logo">HASOMAN</h2>
+        </div>
+    </header>
+
+    <!-- SIDEBAR MENU (Tempat tombol musik yang baru & dijamin gampang dipencet) -->
+    <nav id="sidebarMenu" class="sidebar">
+        <!-- Tombol Close (X) -->
+        <span class="close-menu" onclick="toggleMenu()">&times;</span>
+        
+        <button class="tab-btn active" onclick="openTab('ensiklopedia')">Ensiklopedia</button>
+        <button class="tab-btn" onclick="openTab('video')">Video</button>
+        <button class="tab-btn" onclick="openTab('jasa')">Jasa</button>
+        <button class="tab-btn" onclick="openTab('produk')">Produk</button>
+        <button class="tab-btn" onclick="openTab('game')">Game Proyek</button>
+        
+        <!-- Tombol Musik dipindah ke sini -->
+        <button id="musicToggle" class="tab-btn" onclick="toggleMusic()" style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">🎵 Music: OFF</button>
+    </nav>
+        
+    <main>
+        <!-- TAB 1: Ensiklopedia -->
+        <section id="ensiklopedia" class="tab-content active">
+            <h2>Ensiklopedia Hardware (Klik Kartu di Bawah)</h2>
+            <div class="card-grid">
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxSua3J6BaIBrq_UpOkiuRziRNHtG4rmK8pDTGCYiQ0g&s=10" alt="Router" class="card-img">
+                    <h3>Router Cisco</h3>
+                    <p>Perangkat penghubung jaringan yang mengatur rute paket data ke tujuan akhir.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT55E7OoEL4n6rIxTNHXA3VHFBTsFYA0aULDGtjieD0Zw&s=10" alt="Switch" class="card-img">
+                    <h3>Switch Jaringan</h3>
+                    <p>Beroperasi di Layer 2, meneruskan data antar perangkat dalam satu jaringan lokal.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTstlYkiJn6IgOQj86fISpFSi2BMCq4ECX--eG-U6FOtVkgWAJ_MMPlZ1Q&s=103" alt="Kabel UTP" class="card-img">
+                    <h3>Kabel UTP (TIA/EIA-568)</h3>
+                    <p>Standar pengkabelan jaringan. Menggunakan urutan pin Straight-through atau Crossover pada konektor RJ-45.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiFF6tlnKYMYSEe6Sdsw9FSjkCje_kscitF2r2Ihq0XQ&s=10" alt="Access Point" class="card-img">
+                    <h3>Access Point </h3>
+                    <p>Access point adalah perangkat keras jaringan komputer yang berfungsi sebagai jembatan untuk menghubungkan perangkat nirkabel (seperti ponsel, laptop, atau tablet) ke jaringan lokal atau internet menggunakan gelombang radio.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxR2hd_rZQH4i4jUlpRXCvlbYLo5fKHtsmBrLbjYzTVw&s=10" alt="Hub" class="card-img">
+                    <h3>Hub</h3>
+                    <p>Hub adalah perangkat jaringan yang digunakan untuk menghubungkan beberapa perangkat dalam satu jaringan LAN.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="data:image/jpeg;base64,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" alt="Modem" class="card-img">
+                    <h3>Modem </h3>
+                    <p>Modem adalah perangkat yang menghubungkan jaringan internet dari ISP ke perangkat atau jaringan kita.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRVMWnxwXW73wkMTwI7Lr7fCo_2C280_ykr0D_nTGmHg&s=10" alt="Kabel Fiber Optik" class="card-img">
+                    <h3>Kabel Fiber Optik </h3>
+                    <p>Fiber optic adalah kabel yang menggunakan serat kaca/plastik untuk mengirim data dalam bentuk cahaya dengan kecepatan tinggi.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvFA3FzruzU45n2E8Hy_bqL6B9mqdxKku_AeDsXb6kQA&s=10" alt="Router Mikrotik" class="card-img">
+                    <h3>Router Mikrotik </h3>
+                    <p>Router MikroTik adalah perangkat jaringan yang berfungsi mengatur lalu lintas data dan menghubungkan beberapa jaringan.</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHdVD12bXzeQiQaNgX_Onr4Q83fkdhkdKrxJAmsewiBw&s=10" alt="ODP" class="card-img">
+                    <h3>ODP </h3>
+                    <p>ODP (Optical Distribution Point) adalah kotak tempat membagi dan menghubungkan kabel fiber optic dari jaringan utama ke pelanggan..</p>
+                </div>
+                <div class="card" onclick="bukaPopup(this)">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPUehjyOBJFzmx3K5OQSIYalA12xDno7ZTI0UvGMyHXw&s=10" alt="Server" class="card-img">
+                    <h3>Server </h3>
+                    <p>Server adalah komputer yang menyediakan data, layanan, atau sumber daya untuk perangkat lain dalam jaringan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: Video -->
+        <!-- TAB 2: Video Konfigurasi Perangkat -->
+        <section id="video" class="tab-content">
+            <h2>Video Instalasi & Konfigurasi Perangkat</h2>
+            
+            <div class="card-grid">
+                <!-- Video 1: Router Cisco -->
+                <div class="card" style="cursor: default;">
+                    <h3>Konfigurasi Dasar Router Cisco</h3>
+                    <div class="video-container" style="margin-top: 0.5rem;">
+                        <iframe width="100%" height="220" src="https://www.youtube.com/embed/g2XT4WXebuU" title="Router Cisco" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Video 2: Switch -->
+                <div class="card" style="cursor: default;">
+                    <h3>Konfigurasi VLAN pada Switch</h3>
+                    <div class="video-container" style="margin-top: 0.5rem;">
+                        <iframe width="100%" height="220" src="https://www.youtube.com/embed/2Yn1JcOXRLg" title="Switch VLAN" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Video 3: Access Point / Perangkat Lain -->
+                <div class="card" style="cursor: default;">
+                    <h3>Setup Access Point Wi-Fi</h3>
+                    <div class="video-container" style="margin-top: 0.5rem;">
+                        <iframe width="100%" height="220" src="https://www.youtube.com/embed/deUuKZ2rIsM" title="Access Point" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Jasa -->
+        <section id="jasa" class="tab-content">
+            <h2>Layanan & Jasa Profesional</h2>
+            <p style="margin-bottom: 1.5rem;">Kami menyediakan solusi infrastruktur jaringan dan IT untuk kebutuhan rumah, sekolah, atau kantor Anda.</p>
+            
+            <div class="card-grid">
+                
+                <!-- Layanan 1 -->
+                <div class="card" style="cursor: default;">
+                    <h3>🛠️ Setup & Konfigurasi Jaringan</h3>
+                    <p style="margin-bottom: 1rem;">Perancangan topologi jaringan, konfigurasi Router (Cisco/MikroTik), Switch, dan manajemen kabel UTP sesuai standar TIA/EIA.</p>
+                    <p style="color: var(--emerald-green); font-weight: bold; margin-bottom: 1rem;">Mulai dari Rp 250.000</p>
+                    <a href="https://wa.me/6281528655901?text=Halo,%20saya%20tertarik%20dengan%20jasa%20Setup%20dan%20Konfigurasi%20Jaringan%20Anda." target="_blank" class="action-btn">Konsultasi via WhatsApp</a>
+                </div>
+
+                <!-- Layanan 2 -->
+                <div class="card" style="cursor: default;">
+                    <h3>💻 Perancangan Simulasi & Tugas (Cisco Packet Tracer)</h3>
+                    <p style="margin-bottom: 1rem;">Membantu pembuatan topologi jaringan, troubleshooting error, dan dokumentasi proyek untuk tugas sekolah atau kuliah.</p>
+                    <p style="color: var(--emerald-green); font-weight: bold; margin-bottom: 1rem;">Mulai dari Rp 50.000</p>
+                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20tugas%20Cisco%20Packet%20Tracer." target="_blank" class="action-btn">Konsultasi via WhatsApp</a>
+                </div>
+
+                <!-- Layanan 3 -->
+                <div class="card" style="cursor: default;">
+                    <h3>🌐 Maintenance & Troubleshooting</h3>
+                    <p style="margin-bottom: 1rem;">Pemeriksaan berkala jaringan internet lambat, perbaikan koneksi LAN yang putus, dan optimalisasi kecepatan Wi-Fi.</p>
+                    <p style="color: var(--emerald-green); font-weight: bold; margin-bottom: 1rem;">Menyesuaikan Kebutuhan</p>
+                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20butuh%20bantuan%20troubleshooting%20jaringan." target="_blank" class="action-btn">Hubungi Kami</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 4: Produk -->
+        <!-- TAB 4: Produk -->
+        <section id="produk" class="tab-content">
+            <h2>Rekomendasi Hardware Jaringan</h2>
+            <div class="card-grid">
+                
+                <!-- Produk 1 -->
+                <div class="card" style="cursor: default;">
+                    <!-- Gambar Produk -->
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=500&q=80" alt="Kabel LAN" class="card-img">
+                    <h3>Kabel LAN Cat6 30 Meter</h3>
+                    <p style="color: var(--emerald-green); font-weight: bold; margin-bottom: 0.5rem;">Harga: Rp 150.000</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">Kabel UTP berkualitas tinggi untuk jaringan internet stabil di rumah atau kantor.</p>
+                    
+                    <!-- Tombol Link Affiliate Shopee / Tokopedia -->
+                    <!-- Ganti tanda pagar (#) dengan link affiliate milikmu -->
+                    <a href="https://share.google/8nKkh05WLqq5JoLsk" target="_blank" class="action-btn">Beli di Shopee</a>
+                </div>
+
+                <!-- Produk 2 (Bisa kamu duplikat ke samping jika ingin menambah produk lain) -->
+                <div class="card" style="cursor: default;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZE1RujkIBHBzOGAY6o747PSeHDFWyMRVLmcz3NZ2cmQ&s=10" alt="Switch Hub" class="card-img">
+                    <h3>TP-Link Switch 8 Port Gigabit</h3>
+                    <p style="color: var(--emerald-green); font-weight: bold; margin-bottom: 0.5rem;">Harga: Rp 220.000</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">Switch ethernet berkecepatan tinggi untuk memperbanyak koneksi LAN.</p>
+                    
+                    <a href="https://id.shp.ee/DrqeRynS" target="_blank" class="action-btn">Beli di Shopee</a>
+                </div>
+
+            </div>
+        </section>
+
+      <!-- TAB 5: Game Interaktif Jaringan -->
+        <section id="game" class="tab-content">
+            <h2>NetMaster Time Attack ⏱️</h2>
+            <p style="margin-bottom: 1.5rem; text-align: center;">Jawab pertanyaan infrastruktur jaringan sebanyak mungkin dalam 30 detik! Buktikan kamu ahlinya.</p>
+            
+            <div class="game-wrapper">
+                <!-- Menu Utama Game & Leaderboard -->
+                <div id="game-menu" class="card text-center" style="cursor: default;">
+                    <h3>Siap Mencetak Rekor?</h3>
+                    <p style="margin-bottom: 1rem;">Pastikan kamu paham Cisco, Mikrotik, dan standar UTP!</p>
+                    <button class="action-btn" onclick="startGame()" style="font-size: 1.2rem; padding: 0.8rem 2rem;">Let's start</button>
+                    
+                    <div class="leaderboard">
+                        <h4 style="margin-top: 2rem; border-bottom: 1px solid var(--emerald-light); padding-bottom: 0.5rem;">🏆 Papan Skor Global (Update Mingguan)</h4>
+                        <table id="score-table">
+                            <thead>
+                                <tr>
+                                    <th>Peringkat</th>
+                                    <th>Nama Pemain</th>
+                                    <th>Skor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body">
+                                <!-- Data skor akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Area Bermain (Tersembunyi di awal) -->
+                <div id="game-play" class="card text-center" style="display: none; cursor: default;">
+                    <div class="timer-bar-container">
+                        <div id="timer-bar"></div>
+                    </div>
+                    <h2 id="time-text" style="color: red; font-size: 2rem; margin: 1rem 0;">30s</h2>
+                    
+                    <h3 id="question-text" style="margin-bottom: 1.5rem; font-size: 1.3rem;">Pertanyaan akan muncul di sini</h3>
+                    
+                    <div id="options-container" class="options-grid">
+                        <button class="option-btn" onclick="checkAnswer(0)">Opsi A</button>
+                        <button class="option-btn" onclick="checkAnswer(1)">Opsi B</button>
+                        <button class="option-btn" onclick="checkAnswer(2)">Opsi C</button>
+                        <button class="option-btn" onclick="checkAnswer(3)">Opsi D</button>
+                    </div>
+                </div>
+
+                <!-- Hasil Akhir (Tersembunyi di awal) -->
+                <div id="game-over" class="card text-center" style="display: none; cursor: default;">
+                    <h2>Waktu Habis! ⏰</h2>
+                    <p>Skor Akhir Kamu:</p>
+                    <h1 id="final-score" style="color: var(--emerald-green); font-size: 3rem; margin: 1rem 0;">0</h1>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <input type="text" id="playerName" placeholder="Masukkan Nama Kamu..." style="padding: 10px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px;">
+                        <br>
+                        <button class="action-btn" onclick="saveScore()">Simpan Skor ke Papan</button>
+                    </div>
+                    <button class="action-btn" onclick="resetGameMenu()" style="background-color: #555;">Kembali ke Menu</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- KOTAK POP-UP ENSIKLOPEDIA -->
+        <div id="kotakPopup" class="modal-overlay" onclick="tutupPopup()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <span class="close-btn" onclick="tutupPopup()">&times;</span>
+                <img id="gambarPopup" src="" alt="Gambar Detail">
+                <h3 id="judulPopup">Judul</h3>
+                <p id="teksPopup">Deskripsi</p>
+            </div>
+        </div>
+
+    </main>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
